@@ -9,10 +9,10 @@
         isValidEmail: function(email, remoteDS) {
             remoteDS.get(email, function (serverResponse) {
                 console.log(serverResponse);
-                if (serverResponse.emailAddress === email) {
-                    return false;
-                } else {
+                if (serverResponse === null) {
                     return true;
+                } else {
+                    return false;
                 }
             });
             /*if(res.emailAddress === email) {

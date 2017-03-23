@@ -47,14 +47,14 @@
     };
 
     FormHandler.prototype.addAfterInputHandler = function (fn) {
-        this.$formElement.on('blur', '[name="emailAddress"]', function (event) {
-            var emailAddress = event.target.value;
+        this.$formElement.on('submit', function (event) {
+            var emailAddress = $('#emailInput').val();
             var message = '';
             if (fn(emailAddress)) {
-                event.target.setCustomValidity('');
+                document.getElementById('emailInput').setCustomValidity('');
             } else {
                 message = 'Order with Email- ' + emailAddress + ' is already available!';
-                event.target.setCustomValidity(message);
+                document.getElementById('emailInput').setCustomValidity(message);
             }
         });
     };

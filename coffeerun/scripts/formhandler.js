@@ -46,6 +46,19 @@
         });
     };
 
+    FormHandler.prototype.addAfterInputHandler = function (fn) {
+        this.$formElement.on('blur', '[name="emailAddress"]', function (event) {
+            var emailAddress = event.target.value;
+            var message = '';
+            if (fn(emailAddress)) {
+                event.target.setCustomValidity('');
+            } else {
+                message = 'Order with Email- ' + emailAddress + ' is already available!';
+                event.target.setCustomValidity(message);
+            }
+        });
+    };
+
     App.FormHandler = FormHandler;
     window.App = App;
 })(window);

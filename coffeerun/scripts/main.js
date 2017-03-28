@@ -24,9 +24,6 @@
         });
     });
     formHandler.addInputHandler(Validation.isCompanyEmail);
-    formHandler.addAfterInputHandler(function (email) {
-        Validation.isValidEmail(email, remoteDS);
-    });
     formHandler.addAfterInputHandler(Validation.isValidEmail, remoteDS);
     myTruck.printOrders(checkList.addRow.bind(checkList));
 })(window);

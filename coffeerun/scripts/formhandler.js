@@ -46,16 +46,20 @@
         });
     };
 
-    FormHandler.prototype.addAfterInputHandler = function (fn) {
-        this.$formElement.on('submit', function (event) {
-            var emailAddress = $('#emailInput').val();
+    FormHandler.prototype.addAfterInputHandler = function (fn, remoteDS) {
+        this.$formElement.on('blur', '[name="emailAddress"]', function (event) {
+            var emailAddress = event.target.value;
             var message = '';
-            if (fn(emailAddress)) {
-                document.getElementById('emailInput').setCustomValidity('');
-            } else {
-                message = 'Order with Email- ' + emailAddress + ' is already available!';
-                document.getElementById('emailInput').setCustomValidity(message);
-            }
+            fn(emailAddress, remoteDS)
+            .then(function () {
+                if (App.validEmail) {
+                    event.target.setCustomValidity('');
+                } else {
+                    message = 'Order with Email- ' + emailAddress + ' is already available!';
+                    console.log(message);
+                    event.target.setCustomValidity(message);
+                }
+            });
         });
     };
 
